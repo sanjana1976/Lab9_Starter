@@ -7,6 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lab 9</title>
 
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({
+      token: "5657765ade2a40a6810f081a3c95b00b"
+    });
+  </script>
+
   <style>
     button {
       margin: 3px;
@@ -96,13 +103,6 @@
       <button>Trigger a Global Error</button>
     </section>
   </main>
-
-  <!--
-  <script>
-    window._trackJs = { token: 'YOUR-TRACKJS-TOKEN-HERE', application: 'lab9' };
-  </script>
-  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
-  -->
 
   <script>
     class CalculatorError extends Error {
@@ -201,10 +201,9 @@
       if (handler) btn.addEventListener('click', handler);
     });
 
-    window.onerror = (message, source, lineno) => {
-      console.log(`Global error caught: "${message}" at ${source}:${lineno}`);
-      return false;
-    };
+    window.addEventListener('error', e => {
+      console.log(`Global error caught: "${e.message}" at ${e.filename}:${e.lineno}`);
+    });
   </script>
 </body>
 
